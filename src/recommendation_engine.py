@@ -1,62 +1,39 @@
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
+from surprise import Dataset, Reader, SVD
+from surprise.model_selection import train_test_split, cross_validate
 
-# Load the preprocessed data
-online_retail_path = '../data/preprocessed_online_retail.csv'
-amazon_reviews_path = '../data/preprocessed_amazon_reviews.csv'
+# Load preprocessed data
+preprocessed_amazon_reviews_path = '../data/preprocessed_amazon_reviews.csv'
+amazon_reviews_df = pd.read_csv(preprocessed_amazon_reviews_path)
 
-# Load datasets
-online_retail_df = pd.read_csv(online_retail_path)
-amazon_reviews_df = pd.read_csv(amazon_reviews_path)
+# Convert the Amazon Reviews dataset into Surprise format
+reader = Reader(rating_scale=(1, 5))
+data = Dataset.load_from_df(amazon_reviews_df[['UserId', 'ProductId', 'Rating']], reader)
 
-# Data Preprocessing
-def preprocess_data(df):
-    df.dropna(subset=['description'], inplace=True)  # Drop rows with missing descriptions
-    df['description'] = df['description'].astype(str)  # Ensure descriptions are strings
-    return df
+# Split the data into training and test sets
+trainset, testset = train_test_split(data, test_size=0.2)
 
-online_retail_df = preprocess_data(online_retail_df)
-amazon_reviews_df = preprocess_data(amazon_reviews_df)
+# Initialize the SVD algorithm
+algo = SVD()
 
-# Build the Recommendation Engine
-def build_recommendation_model(df):
-    # Use TF-IDF Vectorizer for text features
-    tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf_vectorizer.fit_transform(df['description'])
-    cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
-    return cosine_sim
+# Train the algorithm on the training data
+algo.fit(trainset)
 
-# Generate Recommendations
-def recommend_products(df, cosine_sim, index, top_n=10):
-    # Get similarity scores for the specified product
-    sim_scores = list(enumerate(cosine_sim[index]))
-    
-    # Sort products based on similarity scores
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    
-    # Get the scores of the top_n most similar products
-    sim_scores = sim_scores[1:top_n+1]
-    
-    # Get the indices of the top_n most similar products
-    product_indices = [i[0] for i in sim_scores]
-    
-    # Return the top_n most similar products
-    return df.iloc[product_indices]
+# Evaluate the performance on the test set
+predictions = algo.test(testset)
+accuracy.rmse(predictions)
+accuracy.mae(predictions)
 
-# Example Usage
-def main():
-    # Build the recommendation model
-    cosine_sim = build_recommendation_model(online_retail_df)
-    
-    # Example: Get recommendations for a product at index 0
-    product_index = 0
-    recommendations = recommend_products(online_retail_df, cosine_sim, product_index)
-    
-    # Print recommendations
-    print("Recommended Products:")
-    print(recommendations[['product_id', 'description']])
+# Example: Predict rating for a specific user and product
+def predict_rating(user_id, product_id):
+    pred = algo.predict(user_id, product_id)
+    return pred.est
 
-if __name__ == "__main__":
-    main()
+# Example usage
+user_id = 'A1M2LQ8TIY51I9'  # Replace with an actual user ID from your dataset
+product_id = 'B00006HAXW'   # Replace with an actual product ID from your dataset
+predicted_rating = predict_rating(user_id, product_id)
+print(f"Predicted rating for user {user_id} and product {product_id}: {predicted_rating}")
 
+# Evaluate the performance using cross-validation
+cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
