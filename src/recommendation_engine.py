@@ -30,7 +30,7 @@ trainset = data.build_full_trainset()
 algo.fit(trainset)
 
 # Example: Predict rating for a specific user and product
-user_id = 'A1M2LQ8TIY51I9'  # Replace with an actual user ID from your dataset
-product_id = 'B00006HAXW'   # Replace with an actual product ID from your dataset
+user_id = 'A3JRGQVEQN31IQ'  # Replace with any user ID from the dataset
+product_id = 'B006K2ZZ7K'   # Replace with any product ID from the dataset
 pred = algo.predict(user_id, product_id)
 print(f"Predicted rating for user {user_id} and product {product_id}: {pred.est}")
