@@ -91,7 +91,7 @@ This project is an AI-powered recommendation engine designed to provide personal
 
 ## Troubleshooting
 
-- **Missing Dependencies:** Ensure all dependencies are installed as per the `requirements.txt`. Reinstall them if needed.
+- **Missing Dependencies:** Ensure all dependencies are installed as per the `requirements.txt`. Reinstall them manually if needed.
 - **Data File Issues:** Verify that the data files are correctly placed in the `data` directory.
 - **Virtual Environment Issues:** Ensure the virtual environment is properly activated before running scripts.
 
