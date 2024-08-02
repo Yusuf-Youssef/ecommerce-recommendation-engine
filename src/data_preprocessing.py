@@ -1,52 +1,68 @@
-# src/data_preprocessing.py
-
-import pandas as pd
+import os
 import requests
+import pandas as pd
 
-# Function to download a file from Google Drive
-def download_file_from_google_drive(url, destination):
-    response = requests.get(url)
-    with open(destination, 'wb') as file:
-        file.write(response.content)
+def download_file_from_google_drive(id, destination):
+    URL = "https://docs.google.com/uc?export=download"
 
-# URLs to the large datasets
-online_retail_url = https://drive.google.com/uc?export=download&id=12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw
-amazon_reviews_url = https://drive.google.com/uc?export=download&id=10H9z9sI6055zrjhGKdkRSq6zTZq9hcfp
+    session = requests.Session()
+    response = session.get(URL, params={'id': id}, stream=True)
+    token = get_confirm_token(response)
 
-# Download the files
-download_file_from_google_drive(online_retail_url, '../data/online_retail.xlsx')
-download_file_from_google_drive(amazon_reviews_url, '../data/amazon_reviews.csv')
+    if token:
+        params = {'id': id, 'confirm': token}
+        response = session.get(URL, params=params, stream=True)
+
+    save_response_content(response, destination)
+
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith('download_warning'):
+            return value
+    return None
+
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
+
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk:  # filter out keep-alive new chunks
+                f.write(chunk)
+
+data_dir = '../data/'
+online_retail_id = '12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw'
+online_retail_path = os.path.join(data_dir, 'online_retail.xlsx')
+amazon_reviews_path = os.path.join(data_dir, 'amazon_reviews.csv')
+
+# Download online_retail.xlsx if it doesn't exist
+if not os.path.exists(online_retail_path):
+    print(f"Downloading {online_retail_path}...")
+    download_file_from_google_drive(online_retail_id, online_retail_path)
+    print(f"Downloaded {online_retail_path}")
 
 # Load the datasets
-online_retail = pd.read_excel('../data/online_retail.xlsx')
-amazon_reviews = pd.read_csv('../data/amazon_reviews.csv')
-retail_sales = pd.read_csv('../data/retail_sales_dataset.csv')
+online_retail_df = pd.read_excel(online_retail_path)
+amazon_reviews_df = pd.read_csv(amazon_reviews_path)
 
-# Data Cleaning
-# Handle missing values
-online_retail.fillna(method='ffill', inplace=True)
-amazon_reviews.fillna(method='ffill', inplace=True)
-retail_sales.fillna(method='ffill', inplace=True)
+# Display shapes and head of dataframes before preprocessing
+print(f"Online Retail Dataset Shape: {online_retail_df.shape}")
+print(f"Amazon Reviews Dataset Shape: {amazon_reviews_df.shape}")
+print("Online Retail Dataset Sample:\n", online_retail_df.head())
+print("Amazon Reviews Dataset Sample:\n", amazon_reviews_df.head())
 
-# Remove duplicates
-online_retail.drop_duplicates(inplace=True)
-amazon_reviews.drop_duplicates(inplace=True)
-retail_sales.drop_duplicates(inplace=True)
+# Perform preprocessing steps
+online_retail_df.drop_duplicates(inplace=True)
+amazon_reviews_df.drop_duplicates(inplace=True)
 
-# Feature Engineering
-# Normalize numerical features for online_retail
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+# Display shapes and head of dataframes after preprocessing
+print(f"Online Retail Dataset Shape after preprocessing: {online_retail_df.shape}")
+print(f"Amazon Reviews Dataset Shape after preprocessing: {amazon_reviews_df.shape}")
+print("Online Retail Dataset Sample after preprocessing:\n", online_retail_df.head())
+print("Amazon Reviews Dataset Sample after preprocessing:\n", amazon_reviews_df.head())
 
-scaler = StandardScaler()
-online_retail['Quantity'] = scaler.fit_transform(online_retail[['Quantity']])
-online_retail['UnitPrice'] = scaler.fit_transform(online_retail[['UnitPrice']])
+# Save the preprocessed data if needed
+preprocessed_online_retail_path = os.path.join(data_dir, 'preprocessed_online_retail.csv')
+preprocessed_amazon_reviews_path = os.path.join(data_dir, 'preprocessed_amazon_reviews.csv')
 
-# Encode categorical features for amazon_reviews
-label_encoder = LabelEncoder()
-amazon_reviews['product_category'] = label_encoder.fit_transform(amazon_reviews['product_category'])
-
-# Save preprocessed data
-online_retail.to_csv('../data/processed_online_retail.csv', index=False)
-amazon_reviews.to_csv('../data/processed_amazon_reviews.csv', index=False)
-retail_sales.to_csv('../data/processed_retail_sales.csv', index=False)
-
+online_retail_df.to_csv(preprocessed_online_retail_path, index=False)
+amazon_reviews_df.to_csv(preprocessed_amazon_reviews_path, index=False)
