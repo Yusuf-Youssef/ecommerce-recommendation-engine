@@ -1,5 +1,4 @@
 # data/online_retail_link.txt
 
 Download the online retail dataset from the following link:
-
 https://docs.google.com/spreadsheets/d/12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw/edit?usp=share_link&ouid=103580643286337252793&rtpof=true&sd=true
