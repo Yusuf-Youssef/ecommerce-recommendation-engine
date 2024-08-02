@@ -10,8 +10,8 @@ def download_file_from_google_drive(url, destination):
         file.write(response.content)
 
 # URLs to the large datasets
-online_retail_url = https://docs.google.com/spreadsheets/d/12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw/edit?usp=share_link&ouid=103580643286337252793&rtpof=true&sd=true
-amazon_reviews_url = https://drive.google.com/file/d/10H9z9sI6055zrjhGKdkRSq6zTZq9hcfp/view?usp=share_link
+online_retail_url = https://drive.google.com/uc?export=download&id=12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw
+amazon_reviews_url = https://drive.google.com/uc?export=download&id=10H9z9sI6055zrjhGKdkRSq6zTZq9hcfp
 
 # Download the files
 download_file_from_google_drive(online_retail_url, '../data/online_retail.xlsx')
