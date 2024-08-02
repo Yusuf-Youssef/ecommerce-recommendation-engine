@@ -18,34 +18,35 @@ This project is an AI-powered recommendation engine designed to provide personal
 4. **Evaluation and Optimization:**
    - The model is evaluated using RMSE (Root Mean Square Error) and MAE (Mean Absolute Error). Continuous evaluation and optimization strategies can be implemented for further improvement.
 
-## Installation Instructions
+## Getting Started
 
 ### Prerequisites
 
-- **Python:** 3.12 or later
-- **pip:** Python package installer
+- Python 3.12
+- Virtual environment (recommended)
 
-### Setting Up the Virtual Environment
+### Installation Instructions
 
-1. **Create a Virtual Environment:**
+1. Clone the repository:
+
    ```bash
-   python3 -m venv env
+   git clone https://github.com/Yusuf-Youssef/ecommerce-recommendation-engine.git
+   cd ecommerce-recommendation-engine
    ```
 
-2. **Activate the Virtual Environment:**
-   - **Mac/Linux:**
-     ```bash
-     source env/bin/activate
-     ```
-   - **Windows:**
-     ```bash
-     .\env\Scripts\activate
-     ```
+2. Create and activate a virtual environment:
+
+   ```bash
+   python3 -m venv env
+   source env/bin/activate
+   ```
 
 3. **Install Dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
+
+   If installing the dependencies directly from the requirements.txt file doesn't work, please install them manually.
 
    **`requirements.txt` includes:**
    ```
