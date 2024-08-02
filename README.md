@@ -1,8 +1,12 @@
+Here's a comprehensive README file documenting the necessary information for evaluators. Feel free to adjust or expand upon it as needed:
+
+---
+
 # eCommerce Recommendation Engine
 
 ## Overview
 
-This project is an AI-powered recommendation engine designed to provide personalized product recommendations using collaborative filtering. The recommendation model is built using Singular Value Decomposition (SVD) and evaluated using metrics such as root-mean-square error (RMSE) and mean absolute error (MAE). This README provides instructions on how to set up the environment, run the scripts, and understand the evaluation process.
+This project is an AI-powered recommendation engine designed to provide personalized product recommendations using collaborative filtering. The recommendation model is built using Singular Value Decomposition (SVD) and evaluated using metrics such as RMSE and MAE. This README provides instructions on how to set up the environment, run the scripts, and understand the evaluation process.
 
 ## Requirements
 
@@ -103,3 +107,7 @@ This project is an AI-powered recommendation engine designed to provide personal
 ## Conclusion
 
 This recommendation engine provides a functional prototype for personalized product recommendations. By following the instructions above, evaluators should be able to set up, run, and test the recommendation system.
+
+---
+
+Feel free to add or modify any details specific to your setup or requirements.
