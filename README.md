@@ -80,7 +80,7 @@ This project is an AI-powered recommendation engine designed to provide personal
 
    This script will evaluate the recommendation model and output performance metrics along with a sample prediction.
 
-2. **Try Different Samples**
+2. **Try Different Samples:**
 
     The sample used in the recommendation_engine.py script is Pamela G. Williams, user ID 'A3JRGQVEQN31IQ' and product ID 'B006K2ZZ7K'.
 
