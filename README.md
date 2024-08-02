@@ -27,14 +27,14 @@ This project is an AI-powered recommendation engine designed to provide personal
 
 ### Installation Instructions
 
-1. Clone the repository:
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/Yusuf-Youssef/ecommerce-recommendation-engine.git
    cd ecommerce-recommendation-engine
    ```
 
-2. Create and activate a virtual environment:
+2. **Create and activate a virtual environment:**
 
    ```bash
    python3 -m venv env
@@ -79,6 +79,18 @@ This project is an AI-powered recommendation engine designed to provide personal
    ```
 
    This script will evaluate the recommendation model and output performance metrics along with a sample prediction.
+
+2. **Try Different Samples**
+
+    The sample used in the recommendation_engine.py script is Pamela G. Williams, user ID 'A3JRGQVEQN31IQ' and product ID 'B006K2ZZ7K'.
+
+   You can try the engine prediction for different samples by choosing a user ID and product ID from the amazon_reviews.csv file, and accordingly adjusting the following piece of code from the recommendation_engine.py script:
+
+   ```bash
+   # Example: Predict rating for a specific user and product
+   user_id = 'A3JRGQVEQN31IQ'  # Replace with any user ID from the dataset
+   product_id = 'B006K2ZZ7K'   # Replace with any product ID from the dataset
+   ```
 
 ## How It Works
 
