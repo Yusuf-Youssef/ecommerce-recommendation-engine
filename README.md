@@ -54,18 +54,19 @@ This project is an AI-powered recommendation engine designed to provide personal
    scikit-surprise
    openpyxl
    requests
-   numpy<2
+   numpy==1.26
    ```
 
 ### Data Preparation
 
 1. **Download the Data Files:**
    - **Online Retail Data:** Download from [Google Drive link](https://drive.google.com/uc?export=download&id=12Z6DOV-tZ5ujLajzpOa6SmhU4v5HWThw) and save as `online_retail.xlsx` in the `data` directory.
-   - **Amazon Reviews Data:** Due to its large size, download manually from the provided source and save as `amazon_reviews.csv` in the `data` directory.
+   - **Amazon Reviews Data:** Due to its large size, download manually from the link provided in the text file and save as `amazon_reviews.csv` in the `data` directory.
 
 2. **Run Data Preprocessing:**
    ```bash
-   python src/data_preprocessing.py
+   cd src
+   python data_preprocessing.py
    ```
 
    This will preprocess the data and save the cleaned files as `preprocessed_online_retail.csv` and `preprocessed_amazon_reviews.csv` in the `data` directory.
@@ -74,7 +75,7 @@ This project is an AI-powered recommendation engine designed to provide personal
 
 1. **Execute the Recommendation Engine Script:**
    ```bash
-   python src/recommendation_engine.py
+   python recommendation_engine.py
    ```
 
    This script will evaluate the recommendation model and output performance metrics along with a sample prediction.
