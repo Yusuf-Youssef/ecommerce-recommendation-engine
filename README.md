@@ -1,7 +1,3 @@
-Here's a comprehensive README file documenting the necessary information for evaluators. Feel free to adjust or expand upon it as needed:
-
----
-
 # eCommerce Recommendation Engine
 
 ## Overview
@@ -107,7 +103,3 @@ This project is an AI-powered recommendation engine designed to provide personal
 ## Conclusion
 
 This recommendation engine provides a functional prototype for personalized product recommendations. By following the instructions above, evaluators should be able to set up, run, and test the recommendation system.
-
----
-
-Feel free to add or modify any details specific to your setup or requirements.
